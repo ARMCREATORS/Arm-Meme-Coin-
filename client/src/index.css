@@ -33,26 +33,33 @@
 }
 
 .dark {
-  --background: 240 10% 3.9%;
+  --background: 220 15% 8%;
   --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 240 10% 3.9%;
+  --muted: 220 10% 15%;
+  --muted-foreground: 240 5% 65%;
+  --popover: 220 15% 10%;
   --popover-foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
+  --card: 220 12% 12%;
   --card-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 207 90% 54%;
-  --primary-foreground: 211 100% 99%;
-  --secondary: 240 3.7% 15.9%;
+  --border: 220 8% 20%;
+  --input: 220 8% 18%;
+  --primary: 195 100% 50%;
+  --primary-foreground: 220 15% 8%;
+  --secondary: 220 8% 18%;
   --secondary-foreground: 0 0% 98%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --accent: 270 100% 65%;
+  --accent-foreground: 220 15% 8%;
+  --destructive: 0 75% 60%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 240 4.9% 83.9%;
+  --ring: 195 100% 50%;
   --radius: 0.5rem;
+  
+  /* ARM dark theme colors */
+  --arm-primary: 195 100% 55%;
+  --arm-secondary: 270 100% 65%;
+  --arm-accent: 180 100% 60%;
+  --arm-bg: 220 15% 8%;
+  --arm-dark: 220 20% 5%;
 }
 
 @layer base {
@@ -75,8 +82,31 @@
     background: linear-gradient(135deg, #00BFFF 0%, #8000FF 50%, #00FFFF 100%);
   }
   
+  .arm-gradient-dark {
+    background: linear-gradient(135deg, #0088cc 0%, #6600cc 50%, #00cccc 100%);
+  }
+  
   .arm-dark-bg {
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark .glass-effect {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+  }
+  
+  .dark .neon-glow {
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.7);
   }
   
   .animate-slide-up {

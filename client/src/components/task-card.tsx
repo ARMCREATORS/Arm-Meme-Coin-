@@ -83,7 +83,7 @@ export function TaskCard({
   const buttonConfig = getButtonConfig();
 
   return (
-    <Card className="mb-3 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+    <Card className="mb-3 border border-gray-100 dark:border-gray-700 dark:bg-card shadow-sm hover:shadow-md dark:hover:shadow-cyan-500/20 transition-all duration-300 glass-effect">
       <CardContent className="p-4">
         <div className="flex items-center space-x-4">
           <div className={`w-12 h-12 ${getBackgroundColor()} rounded-xl flex items-center justify-center flex-shrink-0`}>

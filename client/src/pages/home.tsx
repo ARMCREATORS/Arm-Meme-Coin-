@@ -87,12 +87,12 @@ export default function Home() {
         return (
           <>
             {/* Welcome Card with ARM Branding */}
-            <Card className="mb-6 overflow-hidden border-0">
+            <Card className="mb-6 overflow-hidden border-0 neon-glow">
               <CardContent className="p-0">
-                <div className="arm-gradient p-6 text-white relative">
+                <div className="arm-gradient dark:arm-gradient-dark p-6 text-white relative">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <img src={armLogo} alt="ARM Logo" className="w-12 h-12 rounded-lg" />
+                      <img src={armLogo} alt="ARM Logo" className="w-12 h-12 rounded-lg shadow-lg" />
                       <div>
                         <h2 className="text-xl font-bold">{getGreeting()}</h2>
                         <p className="text-white/80">{getDisplayName()}</p>
@@ -100,14 +100,14 @@ export default function Home() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-white/80">ARM Points</p>
-                      <p className="text-3xl font-bold">{user?.totalEarned?.toLocaleString() || 0}</p>
+                      <p className="text-3xl font-bold animate-pulse">{user?.totalEarned?.toLocaleString() || 0}</p>
                     </div>
                   </div>
                   
                   <div className="mb-2">
                     <Progress 
                       value={progressInfo.percentage} 
-                      className="h-3 bg-white/20"
+                      className="h-3 bg-white/20 overflow-hidden rounded-full"
                     />
                   </div>
                   <p className="text-xs text-white/90">
@@ -115,8 +115,9 @@ export default function Home() {
                   </p>
                   
                   {/* Animated background elements */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8"></div>
-                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-4 -translate-x-4"></div>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8 animate-pulse-slow"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-4 -translate-x-4 animate-bounce-slow"></div>
+                  <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-cyan-300/20 rounded-full -translate-x-8 -translate-y-8 animate-ping"></div>
                 </div>
               </CardContent>
             </Card>
@@ -126,19 +127,19 @@ export default function Home() {
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <Card className="border-cyan-200 bg-gradient-to-br from-cyan-50 to-blue-50">
+              <Card className="border-cyan-200 dark:border-cyan-600 bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/30 dark:to-blue-900/30 glass-effect">
                 <CardContent className="p-4 text-center">
-                  <Coins className="h-6 w-6 text-cyan-500 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-gray-800">{user?.balance?.toLocaleString() || 0}</p>
-                  <p className="text-xs text-gray-500">ARM Balance</p>
+                  <Coins className="h-6 w-6 text-cyan-500 dark:text-cyan-400 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-gray-800 dark:text-white">{user?.balance?.toLocaleString() || 0}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">ARM Balance</p>
                 </CardContent>
               </Card>
               
-              <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+              <Card className="border-purple-200 dark:border-purple-600 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 glass-effect">
                 <CardContent className="p-4 text-center">
-                  <Star className="h-6 w-6 text-purple-500 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-gray-800">{completedTasksCount}</p>
-                  <p className="text-xs text-gray-500">Tasks Completed</p>
+                  <Star className="h-6 w-6 text-purple-500 dark:text-purple-400 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-gray-800 dark:text-white">{completedTasksCount}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Tasks Completed</p>
                 </CardContent>
               </Card>
             </div>
@@ -251,9 +252,9 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen shadow-xl telegram-webapp">
+    <div className="max-w-md mx-auto bg-background dark:arm-dark-bg min-h-screen shadow-xl telegram-webapp">
       {/* Header with ARM Branding */}
-      <header className="arm-gradient text-white p-4 flex items-center justify-between sticky top-0 z-40">
+      <header className="arm-gradient dark:arm-gradient-dark text-white p-4 flex items-center justify-between sticky top-0 z-40 neon-glow">
         <div className="flex items-center space-x-3">
           <img src={armLogo} alt="ARM" className="w-8 h-8 rounded-lg" />
           <div>
