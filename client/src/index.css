@@ -24,12 +24,12 @@
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
   
-  /* Telegram specific colors */
-  --telegram-blue: 207 90% 40%; /* #0088CC */
-  --telegram-light: 200 90% 54%; /* #229ED9 */
-  --telegram-accent: 202 89% 58%; /* #40A7E3 */
-  --telegram-bg: 202 79% 95%; /* #E8F4FD */
-  --telegram-dark: 210 9% 31%; /* #495057 */
+  /* ARM specific colors */
+  --arm-primary: 195 100% 50%; /* #00BFFF - Bright cyan blue */
+  --arm-secondary: 270 100% 50%; /* #8000FF - Purple */
+  --arm-accent: 180 100% 50%; /* #00FFFF - Cyan */
+  --arm-bg: 240 10% 5%; /* Dark background */
+  --arm-dark: 240 10% 10%; /* Darker background */
 }
 
 .dark {
@@ -67,12 +67,16 @@
 }
 
 @layer utilities {
-  .telegram-blue {
-    @apply bg-[#0088CC] text-white;
+  .arm-primary {
+    @apply bg-[#00BFFF] text-white;
   }
   
-  .telegram-gradient {
-    background: linear-gradient(135deg, #0088CC 0%, #229ED9 100%);
+  .arm-gradient {
+    background: linear-gradient(135deg, #00BFFF 0%, #8000FF 50%, #00FFFF 100%);
+  }
+  
+  .arm-dark-bg {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
   }
   
   .animate-slide-up {

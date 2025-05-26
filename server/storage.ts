@@ -16,7 +16,9 @@ export interface IStorage {
   updateUserBalance(userId: number, amount: number): Promise<void>;
   updateUserLevel(userId: number, level: number): Promise<void>;
   updateLastActive(userId: number): Promise<void>;
+  updateUserWallet(userId: number, tonWallet: string): Promise<void>;
   generateReferralCode(): string;
+  generateWelcomeBonus(): number;
 
   // Task operations
   getTasks(): Promise<Task[]>;
@@ -43,6 +45,18 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   generateReferralCode(): string {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+
+  generateWelcomeBonus(): number {
+    // Random welcome bonus between 500-2000 tokens
+    return Math.floor(Math.random() * (2000 - 500 + 1)) + 500;
+  }
+
+  async updateUserWallet(userId: number, tonWallet: string): Promise<void> {
+    await db
+      .update(users)
+      .set({ tonWallet })
+      .where(eq(users.id, userId));
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -110,12 +124,38 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserTasks(userId: number): Promise<(UserTask & { task: Task })[]> {
-    return await db
-      .select()
+    const results = await db
+      .select({
+        // UserTask fields
+        id: userTasks.id,
+        userId: userTasks.userId,
+        taskId: userTasks.taskId,
+        status: userTasks.status,
+        completedAt: userTasks.completedAt,
+        verifiedAt: userTasks.verifiedAt,
+        rewardClaimed: userTasks.rewardClaimed,
+        // Task fields
+        task: {
+          id: tasks.id,
+          title: tasks.title,
+          description: tasks.description,
+          reward: tasks.reward,
+          type: tasks.type,
+          category: tasks.category,
+          icon: tasks.icon,
+          actionUrl: tasks.actionUrl,
+          verificationData: tasks.verificationData,
+          isActive: tasks.isActive,
+          sortOrder: tasks.sortOrder,
+          createdAt: tasks.createdAt,
+        }
+      })
       .from(userTasks)
       .innerJoin(tasks, eq(userTasks.taskId, tasks.id))
       .where(eq(userTasks.userId, userId))
       .orderBy(desc(userTasks.id));
+    
+    return results;
   }
 
   async getUserTask(userId: number, taskId: number): Promise<UserTask | undefined> {
@@ -154,12 +194,39 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getReferrals(userId: number): Promise<(Referral & { referred: User })[]> {
-    return await db
-      .select()
+    const results = await db
+      .select({
+        // Referral fields
+        id: referrals.id,
+        referrerId: referrals.referrerId,
+        referredId: referrals.referredId,
+        rewardEarned: referrals.rewardEarned,
+        createdAt: referrals.createdAt,
+        // User fields
+        referred: {
+          id: users.id,
+          telegramId: users.telegramId,
+          username: users.username,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          avatarUrl: users.avatarUrl,
+          balance: users.balance,
+          level: users.level,
+          totalEarned: users.totalEarned,
+          referralCode: users.referralCode,
+          referredBy: users.referredBy,
+          tonWallet: users.tonWallet,
+          welcomeBonusReceived: users.welcomeBonusReceived,
+          joinedAt: users.joinedAt,
+          lastActive: users.lastActive,
+        }
+      })
       .from(referrals)
       .innerJoin(users, eq(referrals.referredId, users.id))
       .where(eq(referrals.referrerId, userId))
       .orderBy(desc(referrals.createdAt));
+    
+    return results;
   }
 
   async createReferral(referral: InsertReferral): Promise<Referral> {

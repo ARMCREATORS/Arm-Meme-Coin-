@@ -15,6 +15,8 @@ export const users = pgTable("users", {
   totalEarned: integer("total_earned").notNull().default(0),
   referralCode: text("referral_code").notNull().unique(),
   referredBy: integer("referred_by"),
+  tonWallet: text("ton_wallet"),
+  welcomeBonusReceived: boolean("welcome_bonus_received").notNull().default(false),
   joinedAt: timestamp("joined_at").notNull().defaultNow(),
   lastActive: timestamp("last_active").notNull().defaultNow(),
 });
@@ -101,6 +103,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
   lastName: true,
   avatarUrl: true,
   referredBy: true,
+  tonWallet: true,
 });
 
 export const insertTaskSchema = createInsertSchema(tasks).pick({

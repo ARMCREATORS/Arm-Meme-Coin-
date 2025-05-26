@@ -40,6 +40,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
         
+        // Generate welcome bonus
+        const welcomeBonus = storage.generateWelcomeBonus();
+        
         // Create new user
         user = await storage.createUser({
           telegramId: data.telegramId,
@@ -50,9 +53,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           referredBy,
         });
         
+        // Give welcome bonus
+        await storage.updateUserBalance(user.id, welcomeBonus);
+        
         // Create referral record if applicable
         if (referredBy) {
-          const referralReward = 40; // 40 tokens for successful referral
+          const referralReward = 100; // 100 tokens for successful referral
           await storage.createReferral({
             referrerId: referredBy,
             referredId: user.id,
@@ -231,67 +237,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update wallet endpoint
+  app.post("/api/user/wallet", async (req, res) => {
+    try {
+      const { telegramId, tonWallet } = req.body;
+      
+      const user = await storage.getUserByTelegramId(telegramId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      await storage.updateUserWallet(user.id, tonWallet);
+      res.json({ success: true, message: "Wallet updated successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update wallet" });
+    }
+  });
+
   // Initialize default tasks (admin endpoint)
   app.post("/api/admin/init-tasks", async (req, res) => {
     try {
       const defaultTasks = [
         {
-          title: "Follow @CryptoProject",
-          description: "Follow our Twitter account",
-          reward: 50,
+          title: "Join ARM Group",
+          description: "Join our official ARM Telegram group",
+          reward: 100,
           type: "social",
-          category: "twitter",
-          icon: "fab fa-twitter",
-          actionUrl: "https://twitter.com/cryptoproject",
+          category: "telegram",
+          icon: "fab fa-telegram",
+          actionUrl: "https://t.me/ArmCoin_group",
           verificationData: {},
           isActive: true,
           sortOrder: 1,
         },
         {
-          title: "Subscribe YouTube",
-          description: "Subscribe to our channel",
-          reward: 75,
+          title: "Join ARM Channel",
+          description: "Join our ARM announcements channel",
+          reward: 100,
           type: "social",
-          category: "youtube",
-          icon: "fab fa-youtube",
-          actionUrl: "https://youtube.com/@cryptoproject",
+          category: "telegram",
+          icon: "fab fa-telegram",
+          actionUrl: "https://t.me/Arm_Announcement",
           verificationData: {},
           isActive: true,
           sortOrder: 2,
         },
         {
-          title: "Join Telegram Channel",
-          description: "Join our official Telegram channel",
-          reward: 100,
-          type: "social",
-          category: "telegram",
-          icon: "fab fa-telegram",
-          actionUrl: "https://t.me/cryptoproject",
-          verificationData: {},
-          isActive: true,
-          sortOrder: 3,
-        },
-        {
           title: "Daily Check-in",
           description: "Visit daily for bonus",
-          reward: 25,
+          reward: 50,
           type: "daily",
           category: "daily",
           icon: "fas fa-calendar-check",
           actionUrl: "",
           verificationData: {},
           isActive: true,
-          sortOrder: 4,
+          sortOrder: 3,
         },
         {
-          title: "Refer 3 Friends",
-          description: "Invite friends to join",
-          reward: 200,
+          title: "Refer 5 Friends",
+          description: "Invite friends to join ARM",
+          reward: 500,
           type: "referral",
           category: "referral",
           icon: "fas fa-user-plus",
           actionUrl: "",
-          verificationData: { requiredReferrals: 3 },
+          verificationData: { requiredReferrals: 5 },
+          isActive: true,
+          sortOrder: 4,
+        },
+        {
+          title: "Connect TON Wallet",
+          description: "Connect your TONKeeper wallet",
+          reward: 200,
+          type: "wallet",
+          category: "wallet",
+          icon: "fas fa-wallet",
+          actionUrl: "",
+          verificationData: {},
           isActive: true,
           sortOrder: 5,
         },
@@ -301,7 +324,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await storage.createTask(task);
       }
 
-      res.json({ success: true, message: "Default tasks created" });
+      res.json({ success: true, message: "ARM tasks created successfully" });
     } catch (error) {
       res.status(500).json({ error: "Failed to initialize tasks" });
     }
