@@ -65,7 +65,7 @@ export function WalletConnect() {
   const isWalletConnected = user?.tonWallet;
 
   return (
-    <Card className="mb-6 overflow-hidden border-2 border-cyan-200 bg-gradient-to-r from-cyan-50 to-purple-50">
+    <Card className="mb-6 overflow-hidden border-2 border-cyan-200 dark:border-cyan-600 bg-gradient-to-r from-cyan-50 to-purple-50 dark:from-cyan-900/30 dark:to-purple-900/30 glass-effect neon-glow">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -75,17 +75,17 @@ export function WalletConnect() {
               </svg>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 flex items-center">
+              <h4 className="font-bold text-gray-800 dark:text-white flex items-center">
                 <Wallet className="h-4 w-4 mr-2" />
                 TONKeeper Wallet
               </h4>
               {isWalletConnected ? (
-                <p className="text-sm text-green-600 flex items-center">
+                <p className="text-sm text-green-600 dark:text-green-400 flex items-center">
                   <CheckCircle className="h-3 w-3 mr-1" />
                   Connected: {user.tonWallet?.substring(0, 8)}...
                 </p>
               ) : (
-                <p className="text-sm text-gray-600">Connect to earn 200 ARM tokens</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Connect to earn 200 ARM tokens</p>
               )}
             </div>
           </div>
@@ -120,8 +120,8 @@ export function WalletConnect() {
         </div>
         
         {!isWalletConnected && (
-          <div className="mt-4 p-3 bg-white/50 rounded-lg">
-            <p className="text-xs text-gray-600 text-center">
+          <div className="mt-4 p-3 bg-white/50 dark:bg-black/30 rounded-lg">
+            <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
               🚀 Connect your TONKeeper wallet to manage your ARM tokens and participate in the ecosystem
             </p>
           </div>

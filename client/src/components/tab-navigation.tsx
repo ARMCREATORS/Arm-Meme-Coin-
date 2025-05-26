@@ -14,7 +14,7 @@ export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 z-50 safe-area-inset-bottom">
+    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white dark:bg-card border-t border-gray-200 dark:border-gray-700 z-50 safe-area-inset-bottom glass-effect">
       <div className="flex justify-around py-2">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -26,8 +26,8 @@ export function TabNavigation({ activeTab, onTabChange }: TabNavigationProps) {
               onClick={() => onTabChange(tab.id)}
               className={`flex flex-col items-center py-2 px-4 transition-colors touch-friendly ${
                 isActive 
-                  ? 'text-blue-500' 
-                  : 'text-gray-400 hover:text-gray-600'
+                  ? 'text-cyan-500 dark:text-cyan-400' 
+                  : 'text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
             >
               <Icon className="text-lg mb-1 h-5 w-5" />

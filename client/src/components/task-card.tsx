@@ -93,8 +93,8 @@ export function TaskCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-800 truncate">{task.title}</h4>
-                <p className="text-sm text-gray-500 truncate">{task.description}</p>
+                <h4 className="font-semibold text-gray-800 dark:text-white truncate">{task.title}</h4>
+                <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{task.description}</p>
                 
                 <div className="flex items-center mt-2 space-x-2">
                   <Badge variant="secondary" className="text-xs font-medium bg-cyan-50 text-cyan-700">
