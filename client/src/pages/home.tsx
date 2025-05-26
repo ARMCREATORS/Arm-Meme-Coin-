@@ -94,13 +94,13 @@ export default function Home() {
                     <div className="flex items-center space-x-3">
                       <img src={armLogo} alt="ARM Logo" className="w-12 h-12 rounded-lg shadow-lg" />
                       <div>
-                        <h2 className="text-xl font-bold">{getGreeting()}</h2>
-                        <p className="text-white/80">{getDisplayName()}</p>
+                        <h2 className="text-xl font-black text-white">{getGreeting()}</h2>
+                        <p className="text-white/90 font-semibold">{getDisplayName()}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-white/80">ARM Points</p>
-                      <p className="text-3xl font-bold animate-pulse">{user?.totalEarned?.toLocaleString() || 0}</p>
+                      <p className="text-sm text-white/90 font-semibold">ARM Points</p>
+                      <p className="text-3xl font-black animate-pulse text-white">{user?.totalEarned?.toLocaleString() || 0}</p>
                     </div>
                   </div>
                   
@@ -110,7 +110,7 @@ export default function Home() {
                       className="h-3 bg-white/20 overflow-hidden rounded-full"
                     />
                   </div>
-                  <p className="text-xs text-white/90">
+                  <p className="text-xs text-white font-semibold">
                     Level {user?.level || 1} • {progressInfo.current}/{progressInfo.target} to next level
                   </p>
                   

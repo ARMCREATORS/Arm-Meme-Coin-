@@ -93,28 +93,28 @@ export function TaskCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-gray-800 dark:text-white truncate">{task.title}</h4>
-                <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{task.description}</p>
+                <h4 className="font-bold text-gray-900 dark:text-white truncate">{task.title}</h4>
+                <p className="text-sm font-medium text-gray-600 dark:text-gray-300 truncate">{task.description}</p>
                 
                 <div className="flex items-center mt-2 space-x-2">
-                  <Badge variant="secondary" className="text-xs font-medium bg-cyan-50 text-cyan-700">
+                  <Badge variant="secondary" className="text-xs font-bold bg-cyan-50 dark:bg-cyan-900/50 text-cyan-700 dark:text-cyan-300">
                     +{task.reward} ARM
                   </Badge>
                   
                   {task.type === 'daily' && (
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs font-semibold dark:border-gray-600 dark:text-gray-300">
                       Daily
                     </Badge>
                   )}
                   
                   {task.type === 'referral' && (
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs font-semibold dark:border-gray-600 dark:text-gray-300">
                       High Reward
                     </Badge>
                   )}
                   
                   {status === 'verified' && (
-                    <Badge className="text-xs bg-green-100 text-green-700">
+                    <Badge className="text-xs font-bold bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300">
                       Completed
                     </Badge>
                   )}
