@@ -97,8 +97,8 @@ export function TaskCard({
                 <p className="text-sm text-gray-500 truncate">{task.description}</p>
                 
                 <div className="flex items-center mt-2 space-x-2">
-                  <Badge variant="secondary" className="text-xs font-medium bg-blue-50 text-blue-700">
-                    +{task.reward} TOKENS
+                  <Badge variant="secondary" className="text-xs font-medium bg-cyan-50 text-cyan-700">
+                    +{task.reward} ARM
                   </Badge>
                   
                   {task.type === 'daily' && (
@@ -128,7 +128,7 @@ export function TaskCard({
                 disabled={buttonConfig.disabled}
                 className={`ml-3 flex-shrink-0 ${
                   status === 'available' || status === 'pending' || status === 'completed' 
-                    ? 'telegram-blue' 
+                    ? 'arm-primary' 
                     : ''
                 }`}
               >

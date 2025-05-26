@@ -8,9 +8,11 @@ import { TaskCard } from "@/components/task-card";
 import { ReferralSection } from "@/components/referral-section";
 import { Leaderboard } from "@/components/leaderboard";
 import { TabNavigation } from "@/components/tab-navigation";
+import { WalletConnect } from "@/components/wallet-connect";
 import { useUser } from "@/hooks/use-user";
 import { useTasks } from "@/hooks/use-tasks";
 import { telegram } from "@/lib/telegram";
+import armLogo from "@assets/IMG_20250526_132201.jpg";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('tasks');
@@ -84,47 +86,57 @@ export default function Home() {
       case 'tasks':
         return (
           <>
-            {/* Welcome Card */}
-            <Card className="mb-6 overflow-hidden">
+            {/* Welcome Card with ARM Branding */}
+            <Card className="mb-6 overflow-hidden border-0">
               <CardContent className="p-0">
-                <div className="telegram-gradient p-6 text-white">
+                <div className="arm-gradient p-6 text-white relative">
                   <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h2 className="text-xl font-bold">{getGreeting()}</h2>
-                      <p className="text-white/80">{getDisplayName()}</p>
+                    <div className="flex items-center space-x-3">
+                      <img src={armLogo} alt="ARM Logo" className="w-12 h-12 rounded-lg" />
+                      <div>
+                        <h2 className="text-xl font-bold">{getGreeting()}</h2>
+                        <p className="text-white/80">{getDisplayName()}</p>
+                      </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-white/80">Total Earned</p>
-                      <p className="text-2xl font-bold">{user?.totalEarned?.toLocaleString() || 0}</p>
+                      <p className="text-sm text-white/80">ARM Points</p>
+                      <p className="text-3xl font-bold">{user?.totalEarned?.toLocaleString() || 0}</p>
                     </div>
                   </div>
                   
                   <div className="mb-2">
                     <Progress 
                       value={progressInfo.percentage} 
-                      className="h-2 bg-white/20"
+                      className="h-3 bg-white/20"
                     />
                   </div>
-                  <p className="text-xs text-white/80">
+                  <p className="text-xs text-white/90">
                     Level {user?.level || 1} • {progressInfo.current}/{progressInfo.target} to next level
                   </p>
+                  
+                  {/* Animated background elements */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-8 translate-x-8"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-4 -translate-x-4"></div>
                 </div>
               </CardContent>
             </Card>
 
+            {/* Wallet Connection Section */}
+            <WalletConnect />
+
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              <Card>
+              <Card className="border-cyan-200 bg-gradient-to-br from-cyan-50 to-blue-50">
                 <CardContent className="p-4 text-center">
-                  <Coins className="h-6 w-6 text-blue-500 mx-auto mb-2" />
+                  <Coins className="h-6 w-6 text-cyan-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-gray-800">{user?.balance?.toLocaleString() || 0}</p>
-                  <p className="text-xs text-gray-500">Current Balance</p>
+                  <p className="text-xs text-gray-500">ARM Balance</p>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
                 <CardContent className="p-4 text-center">
-                  <Star className="h-6 w-6 text-orange-500 mx-auto mb-2" />
+                  <Star className="h-6 w-6 text-purple-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-gray-800">{completedTasksCount}</p>
                   <p className="text-xs text-gray-500">Tasks Completed</p>
                 </CardContent>
@@ -240,22 +252,20 @@ export default function Home() {
 
   return (
     <div className="max-w-md mx-auto bg-white min-h-screen shadow-xl telegram-webapp">
-      {/* Header */}
-      <header className="telegram-blue text-white p-4 flex items-center justify-between sticky top-0 z-40">
+      {/* Header with ARM Branding */}
+      <header className="arm-gradient text-white p-4 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-            <Coins className="h-4 w-4" />
-          </div>
+          <img src={armLogo} alt="ARM" className="w-8 h-8 rounded-lg" />
           <div>
-            <h1 className="text-lg font-semibold">AirdropBot</h1>
-            <p className="text-xs opacity-80">Earn crypto rewards</p>
+            <h1 className="text-lg font-semibold">ARM Coin</h1>
+            <p className="text-xs opacity-80">Earn ARM rewards</p>
           </div>
         </div>
         
         <div className="flex items-center space-x-2">
           <div className="bg-white/20 px-3 py-1 rounded-full">
             <span className="text-sm font-medium">{user?.balance?.toLocaleString() || 0}</span>
-            <span className="text-xs ml-1">TOKENS</span>
+            <span className="text-xs ml-1">ARM</span>
           </div>
           
           <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -272,7 +282,7 @@ export default function Home() {
       {/* Quick Earn Button */}
       <Button
         onClick={handleQuickEarn}
-        className="fixed bottom-24 right-6 w-14 h-14 rounded-full shadow-lg telegram-blue animate-bounce-slow z-40"
+        className="fixed bottom-24 right-6 w-14 h-14 rounded-full shadow-lg arm-primary animate-bounce-slow z-40"
         size="icon"
       >
         <Zap className="h-6 w-6" />
